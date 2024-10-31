@@ -1,0 +1,24 @@
+Stage 1: Lexical analyser:
+Lex tool:
+- create the lex(.l) file: file which contains the tokens and token types of the language
+- .l file creation:
+* consists of 4 main parts: headers, definitions, rules and user code section
+* in the header, list the header files to be used in the lex analyser(.c file) and other user defined functions- %{ <header> %}: C code enclosed in these braces is copied directly into the generated C file.
+* in the definitions section, define macros, or definitions. You can also define any global variables or constants here. each definition starts with a %
+* in the rules: This section contains pairs of patterns (for token representation) and actions. The patterns are written as regular expressions, and the actions are written in C code that executes when the token is identified.
+Rule Syntax: %% 
+[RE1] { Action if RE1 is identified }
+[RE2] { Action if RE2 is identified }
+[RE3] { Action if RE3 is identified }
+...
+ %%
+ RE syntax: *(Kleene closure), +(Kleene star), |(or), &(and)
+ list keywords without spaces, separated by the or operator |
+
+* in the user code section: This section is where you place any additional C code. It typically contains the main() function and any other helper functions you may need. In the main function, call the yylex() to start the lexcial analysis.
+ - on doing flex lex_filename.l generates the lexical analyser in c: lex.yy.c
+ - compile lex.yy.c along with linking using -lfl flag
+
+
+ Stage 2: Syntax Analyser: Parser:
+ 

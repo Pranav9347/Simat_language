@@ -1,0 +1,23 @@
+//To simulate DFA for binary strings ending with 1:
+
+Let D1 = DFA{
+	alphabet = '0','1';
+	start = q0;
+	final = q1;
+	transitions = [d(q0,'0')=q0, d(q0,'1')=q1, d(q1,'0')=q0, d(q1,'1')=q1];
+	non_final = q0
+}
+
+Let s = string{"1001011"}
+
+D1.acceptance(s)
+
+//To convert the DFA to its corresponding regular expression:
+Let RE = regular_expression()
+RE = D.to_reg_expn()
+
+print(RE)
+
+if(D1.acceptance == "Accepted"):
+	then print("String parsed!")
+	else print("String not parsed!")
