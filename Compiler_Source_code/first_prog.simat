@@ -13,6 +13,7 @@ Let s = string{"1001011"}
 D1.acceptance(s)
 
 //To convert the DFA to its corresponding regular expression:
+
 Let RE = regular_expression()
 RE = D.to_reg_expn()
 
@@ -21,3 +22,5 @@ print(RE)
 if(D1.acceptance == "Accepted"):
 	then print("String parsed!")
 	else print("String not parsed!")
+
+D.display_graphically()
