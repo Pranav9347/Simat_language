@@ -3,7 +3,20 @@
 	#include <string.h>
 	//#define YYDEBUG 1
 	#include "y.tab.h"
-	
+
+	int has_simat_extension(const char *filename) {
+    const char *extension = ".simat";
+    size_t len = strlen(filename);
+    size_t ext_len = strlen(extension);
+    
+    // Check if the filename is at least as long as the extension
+    if (len < ext_len) {
+        return 0; // Invalid file type
+    }
+    
+    // Compare the end of the filename with the expected extension
+    return strcmp(filename + len - ext_len, extension) == 0;
+}
 	
 %}
 
@@ -89,9 +102,32 @@ minus|Minus|MINUS	{ return MINUS; }
 %%
 
 
-int main()
+
+int main(int argc, char *argv[]) 
 {
 	//yydebug = 1;
+    if (argc < 2) {
+        fprintf(stderr, "Usage: simat <input_file.simat>\n");
+        return EXIT_FAILURE;
+    }
+
+    // Check if the input file has a .simat extension
+    if (!has_simat_extension(argv[1])) {
+        fprintf(stderr, "Invalid file type. Please provide a .simat file.\n");
+        return EXIT_FAILURE;
+    }
+
+    // Your existing code to open the file and process it
+    FILE *input_file = fopen(argv[1], "r");
+    if (!input_file) {
+        perror("Error opening file");
+        return EXIT_FAILURE;
+    }
+    yyin = input_file;
+    // Your parser logic goes here...
+
+    
 	yyparse(); //starts the parsing(lex+syntax+semantic analysis)
+	fclose(input_file);
 	return 0;
 }
