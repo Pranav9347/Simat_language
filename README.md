@@ -170,4 +170,11 @@ for each token in line {
     // Additional checks for other token types can be added here
 }
 ```
-
+## Significance of Simat: (Need for a new langauge)
+1. Flexibility of performing any of the operations in any order from the existing inbuilt set of functions and operations, according to requirements.
+2. Easy and intuitive usage and Seamless Integration with Formal Language Processing: Simat’s tailored constructs for processing regular languages and automata simplify the creation of tools like custom parsers, pattern matchers, and language recognizers. This focus enables researchers to test and experiment with formal language processing concepts without needing to develop low-level processing code.
+3. Unified Language for Multiple Types of Automata: New data types specifically to represent automata and regular expressions.
+4. Control data flow from one variable to another of similar type(assignment, comparison, etc.)
+5. Conditionals and loops enable performing specific actions and code tailored to the needs of the users. This also enables designing complex machines like lexical analysers for any languages using simat
+6. Minimized Boilerplate Code: General-purpose languages often require significant boilerplate code to set up automata constructs or regular expressions. Simat eliminates this by providing built-in structures for common operations, saving time and reducing error rates, especially for those focusing on theoretical aspects rather than language-specific syntax.
+7. Enhanced Readability for Automata-based Logic: Simat's syntax is designed to clearly represent automata states and transitions, making the code more readable and maintainable. This readability is essential for academic use, allowing students and researchers to easily trace and verify the logic of automata implementations.
