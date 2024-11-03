@@ -2,7 +2,7 @@
 # Simat Language Documentation
 
 ## Introduction
-**Simat** is a language designed for simulating various types of automata, including finite state machines, pushdown automata, and Turing machines. Files in Simat have the `.simat` extension. This document provides an overview of the language syntax, tokens, and functions. Automata  are abstract models of machines that perform computations by moving through a series of states. Automata theory is the study of automata and the computational problems that can be solved using them. For more info about automatons, see [wikipedia](https://en.wikipedia.org/wiki/Automata_theory#:~:text=Automata%20theory%20is%20the%20study,input%20symbol%20as%20its%20arguments.)
+**Simat** is a language designed for simulating various types of automata, including finite state machines, pushdown automata, and Turing machines. Files in Simat have the `.simat` extension. This document provides an overview of the language syntax, tokens, and functions. Automata  are abstract models of machines that perform computations by moving through a series of states. Automata theory is the study of automata and the computational problems that can be solved using them. For more info about automata, see [wikipedia](https://en.wikipedia.org/wiki/Automata_theory#:~:text=Automata%20theory%20is%20the%20study,input%20symbol%20as%20its%20arguments.)
 
 ## Aim
 The primary aim of Simat is to simplify the representation, simulation, and operation of automata. It allows users to define states, transitions, and acceptance conditions in a user-friendly manner, enhancing the understanding of automata theory and its applications.
