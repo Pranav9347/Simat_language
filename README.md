@@ -24,10 +24,9 @@ Simat offers several advantages:
 ## 1. Compiling
 To compile a Simat file, use the following command:
 ```bash
-atc filename.satm
+simat filename.simat
 ```
-With flags:
-- `-o`: Renames the output executable.
+
 
 ## 2. Language Tokens
 - **Keywords:** `Let, intersect, union, minus, string, regular_expression, DFA, NFA, PDA, NPDA, TM, NTM`
@@ -40,60 +39,75 @@ With flags:
 ### 3.1 Declaring Automata
 Automata are defined with `Let` statements, specifying the type and attributes. For example:
 ```plaintext
-Let D = DFA{
-    alphabet: set of comma-separated alphabets;
-    start: 1 start state (any letter);
-    final: set of comma-separated final states;
-    transitions: d(state, symbol) = state (comma-separated transitions) enclosed in [];
-    non_final: set of comma-separated non-final states;
-}
+Let <var_name> = DFA{
+			alphabet: set of comma-separated alphabets enclosed in [];
+			start: 1 start state (any letter);
+			non_final: set of comma-separated non-final states enclosed in [];
+			final: set of comma-separated final states enclosed in [];
+			transitions: d(state, symbol) = state (comma-separated transitions) enclosed in []
+			(mapping must be unique/deterministic);
+		}
 ```
-
+In code for example DFA accepting strings ending with '1':
+```
+	Let D1 = DFA{
+		alphabet: ['0','1'];
+		start: "q0";
+		non_final: ["q0"];
+		final: ["q1"];
+		transitions: [d("q0",'0')="q0", d("q0",'1')="q1", d("q1",'0')="q0", d("q1",'1')="q1"];
+	}
+```
 #### Examples
 - **NFA:**
 ```plaintext
-Let ND = NFA{
-    alphabet: set of comma-separated alphabets;
-    start: 1 start state;
-    final: set of final states;
-    transitions: d(state, symbol) = state (comma-separated transitions) enclosed in [];
-    non_final: set of non-final states;
-}
+Let <var_name> = NFA{
+				alphabet: set of comma-separated alphabets enclosed in [];
+				start: 1 start state;
+				non_final: set of non-final states enclosed in [];
+				final: set of final states enclosed in [];
+				transitions: d(state, symbol) = state (comma-separated transitions) enclosed in []
+				(mapping can be non-deterministic);
+			}
 ```
     
 - **PDA:**
 ```plaintext
-Let P = PDA{
-    alphabet: set of comma-separated alphabets;
-    Stack alphabet: set of stack alphabets;
-    stack_symbol: 1 stack symbol (any letter);
-    start: 1 start state (any letter);
-    final: set of comma-separated final states;
-    transitions: d(state, symbol) = state (comma-separated transitions) enclosed in [];
-    non_final: set of comma-separated non-final states;
-}
+Let <var_name> = PDA{
+				alphabet: set of comma-separated alphabets;
+				Stack alphabet: set of stack alphabets;
+				stack_symbol: 1 stack symbol (any letter);
+				start: 1 start state (any letter);
+				non_final: set of comma-separated non-final states;
+				final: set of comma-separated final states;
+				transitions: d(state, symbol) = state (comma-separated transitions) enclosed in [];
+			}
 ```
 
 The order of listing properties in an automaton declaration does not matter.
 
 ### 3.2 Declaring Strings
 ```plaintext
+Let s = string{}
+Let s = string{a} //where a is a string var declared before
 Let s = string{"hello world"}
 ```
 
 ### 3.3 Declaring Regular Expressions
 ```plaintext
-Let RE = regular_expression{"(a+b)*"}
+Let RE = regex{}
+Let RE = regex{"(a+b)*"}
+Let RE = regex{m} //where m is a regex var declared before
 ```
 
 ### 3.4 Automaton Functions
 Automata have various built-in functions:
-- `D.acceptance(string var)` - displays "Accepted" or "Rejected".
-- `D.minimize()` - minimizes the DFA.
-- `D.to_reg_expn()` - converts DFA to regular expression.
+- `D1.acceptance(string var)` - displays "Accepted" or "Rejected".
+- `D1.minimize()` - minimizes the DFA.
+- `D1.to_regex()` - converts DFA to regular expression.
 - `RE.to_DFA()` and `N.to_DFA()` - converts regular expression or NFA to DFA.
 - `RE.to_NFA()` - converts regular expression to NFA.
-- `D.display_graphically()` - displays automaton graphically.
+- `D1.display_graphically()` - displays automaton graphically.
 
 ### 3.5 Automaton Operations
 Basic automaton operations include:
@@ -105,17 +119,17 @@ Basic automaton operations include:
 Simat includes support for loops, enabling repeated execution over tokens. Example syntax:
 ```plaintext
 for each token in line {
-    D.acceptance(token);
+    D1.acceptance(token)
 }
 ```
 
 ### 3.7 Conditionals
 Conditional statements allow for branching logic based on acceptance results. Example syntax:
 ```plaintext
-if (D1.acceptance(str) == "Accepted") {
-    print("keyword");
+if (D1.acceptance(str) == true) {
+    print("keyword")
 } else {
-    print("not a keyword");
+    print("not a keyword")
 }
 ```
 
@@ -129,26 +143,25 @@ Simat supports comments in C-style, allowing users to add inline explanations:
 ### 3.9 Print Function
 The `print()` function outputs strings, regular expressions, or resultant automatons. Example:
 ```plaintext
-print("Automaton accepted the string");
-print(RE);
+print("Automaton accepted the string")
+print(RE)
 ```
 
 ### 3.10 Example Program: Lexical Analysis Simulation
 Below is a sample Simat program demonstrating a lexical analysis simulation for C code:
 ```plaintext
-Let line = string{"int a = 10;"};// example line of C code
-
+Let line = string{"int a = 10;"}// example line of C code
 // Split the line into tokens based on spaces
 for each token in line {
     // Check if the token is a keyword using the Keyword DFA
-    if (KeywordDFA.acceptance(token) == "Accepted") {
+    if (KeywordDFA.acceptance(token) == true) {
         print("{token} is a keyword")
     } else {
         print("{token} is not a keyword")
     }
     
     // Check if the token is an identifier using the Identifier DFA
-    if (IdentifierDFA.acceptance(token) == "Accepted") {
+    if (IdentifierDFA.acceptance(token) == true) {
         print("{token}is an identifier")
     } else {
         print("{token} is not an identifier")
@@ -157,16 +170,4 @@ for each token in line {
     // Additional checks for other token types can be added here
 }
 ```
-
-## 4. Execution
-Compilation generates an `a.out` file if not renamed or `filename.out` file if renamed. Use the command:
-```bash
-./a.out
-```
-or 
-```bash
-./filename.out
-```
-
-This is because the `atc` compiler converts the Simat code to C code and generates the executable of the C program.
 
