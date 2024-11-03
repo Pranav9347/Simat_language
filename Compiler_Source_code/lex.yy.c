@@ -621,10 +621,23 @@ char *yytext;
 	#include <string.h>
 	//#define YYDEBUG 1
 	#include "y.tab.h"
+
+	int has_simat_extension(const char *filename) {
+    const char *extension = ".simat";
+    size_t len = strlen(filename);
+    size_t ext_len = strlen(extension);
+    
+    // Check if the filename is at least as long as the extension
+    if (len < ext_len) {
+        return 0; // Invalid file type
+    }
+    
+    // Compare the end of the filename with the expected extension
+    return strcmp(filename + len - ext_len, extension) == 0;
+}
 	
-	
-#line 627 "lex.yy.c"
-#line 628 "lex.yy.c"
+#line 640 "lex.yy.c"
+#line 641 "lex.yy.c"
 
 #define INITIAL 0
 
@@ -841,10 +854,10 @@ YY_DECL
 		}
 
 	{
-#line 12 "simat_lex.l"
+#line 25 "simat_lex.l"
 
 
-#line 848 "lex.yy.c"
+#line 861 "lex.yy.c"
 
 	while ( /*CONSTCOND*/1 )		/* loops until end-of-file is reached */
 		{
@@ -903,244 +916,244 @@ do_action:	/* This label is used only to access EOF actions. */
 
 case 1:
 YY_RULE_SETUP
-#line 14 "simat_lex.l"
+#line 27 "simat_lex.l"
 { return LET; }
 	YY_BREAK
 case 2:
 YY_RULE_SETUP
-#line 15 "simat_lex.l"
+#line 28 "simat_lex.l"
 { return DFA; }
 	YY_BREAK
 case 3:
 YY_RULE_SETUP
-#line 16 "simat_lex.l"
+#line 29 "simat_lex.l"
 { return NFA; }
 	YY_BREAK
 case 4:
 YY_RULE_SETUP
-#line 17 "simat_lex.l"
+#line 30 "simat_lex.l"
 { return PDA; }
 	YY_BREAK
 case 5:
 YY_RULE_SETUP
-#line 18 "simat_lex.l"
+#line 31 "simat_lex.l"
 { return NPDA; }
 	YY_BREAK
 case 6:
 YY_RULE_SETUP
-#line 19 "simat_lex.l"
+#line 32 "simat_lex.l"
 { return TM; }
 	YY_BREAK
 case 7:
 YY_RULE_SETUP
-#line 20 "simat_lex.l"
+#line 33 "simat_lex.l"
 { return ALPHABET; }
 	YY_BREAK
 case 8:
 YY_RULE_SETUP
-#line 21 "simat_lex.l"
+#line 34 "simat_lex.l"
 { return START; }
 	YY_BREAK
 case 9:
 YY_RULE_SETUP
-#line 22 "simat_lex.l"
+#line 35 "simat_lex.l"
 { return FOR; }
 	YY_BREAK
 case 10:
 YY_RULE_SETUP
-#line 23 "simat_lex.l"
+#line 36 "simat_lex.l"
 { return FINAL; }
 	YY_BREAK
 case 11:
 YY_RULE_SETUP
-#line 24 "simat_lex.l"
+#line 37 "simat_lex.l"
 { return TRANSITIONS; }
 	YY_BREAK
 case 12:
 YY_RULE_SETUP
-#line 25 "simat_lex.l"
+#line 38 "simat_lex.l"
 { return NON_FINAL; }
 	YY_BREAK
 case 13:
 YY_RULE_SETUP
-#line 26 "simat_lex.l"
+#line 39 "simat_lex.l"
 { return STRING; }
 	YY_BREAK
 case 14:
 YY_RULE_SETUP
-#line 27 "simat_lex.l"
+#line 40 "simat_lex.l"
 { return REGEX; }
 	YY_BREAK
 case 15:
 YY_RULE_SETUP
-#line 28 "simat_lex.l"
+#line 41 "simat_lex.l"
 { return D; }
 	YY_BREAK
 case 16:
 YY_RULE_SETUP
-#line 29 "simat_lex.l"
+#line 42 "simat_lex.l"
 { return IF; }
 	YY_BREAK
 case 17:
 YY_RULE_SETUP
-#line 30 "simat_lex.l"
+#line 43 "simat_lex.l"
 { return THEN; }
 	YY_BREAK
 case 18:
 YY_RULE_SETUP
-#line 31 "simat_lex.l"
+#line 44 "simat_lex.l"
 { return ELSE; }
 	YY_BREAK
 case 19:
 YY_RULE_SETUP
-#line 35 "simat_lex.l"
+#line 48 "simat_lex.l"
 { yylval.str = strdup(yytext + 1); 
     									yylval.str[1] = '\0'; return CHAR_CONST; }
 	YY_BREAK
 case 20:
 /* rule 20 can match eol */
 YY_RULE_SETUP
-#line 40 "simat_lex.l"
+#line 53 "simat_lex.l"
 { yylval.str = strndup(yytext + 1, strlen(yytext) - 2);  										return STRING_LITERAL; }
 	YY_BREAK
 case 21:
 YY_RULE_SETUP
-#line 44 "simat_lex.l"
+#line 57 "simat_lex.l"
 { return LBRACKET; }      // Left square bracket
 	YY_BREAK
 case 22:
 YY_RULE_SETUP
-#line 45 "simat_lex.l"
+#line 58 "simat_lex.l"
 { return RBRACKET; }      // Right square bracket
 	YY_BREAK
 case 23:
 YY_RULE_SETUP
-#line 46 "simat_lex.l"
+#line 59 "simat_lex.l"
 { return LBRACE; }        // Left curly brace
 	YY_BREAK
 case 24:
 YY_RULE_SETUP
-#line 47 "simat_lex.l"
+#line 60 "simat_lex.l"
 { return RBRACE; }        // Right curly brace
 	YY_BREAK
 case 25:
 YY_RULE_SETUP
-#line 48 "simat_lex.l"
+#line 61 "simat_lex.l"
 { return LPAREN; }        // Left parenthesis
 	YY_BREAK
 case 26:
 YY_RULE_SETUP
-#line 49 "simat_lex.l"
+#line 62 "simat_lex.l"
 { return RPAREN; }        // Right parenthesis
 	YY_BREAK
 case 27:
 YY_RULE_SETUP
-#line 50 "simat_lex.l"
+#line 63 "simat_lex.l"
 { return SEMICOLON; }     // Semicolon
 	YY_BREAK
 case 28:
 YY_RULE_SETUP
-#line 51 "simat_lex.l"
+#line 64 "simat_lex.l"
 { return COMMA; }          // Comma
 	YY_BREAK
 case 29:
 YY_RULE_SETUP
-#line 57 "simat_lex.l"
+#line 70 "simat_lex.l"
 { /* Ignore single-line comments */ }
 	YY_BREAK
 case 30:
 /* rule 30 can match eol */
 YY_RULE_SETUP
-#line 61 "simat_lex.l"
+#line 74 "simat_lex.l"
 { /* Ignore multi-line comments */ }
 	YY_BREAK
 case 31:
 YY_RULE_SETUP
-#line 65 "simat_lex.l"
+#line 78 "simat_lex.l"
 { return ASSIGN; }
 	YY_BREAK
 case 32:
 YY_RULE_SETUP
-#line 66 "simat_lex.l"
+#line 79 "simat_lex.l"
 { return DOT; }
 	YY_BREAK
 case 33:
 YY_RULE_SETUP
-#line 67 "simat_lex.l"
+#line 80 "simat_lex.l"
 { return KLEENEPLUS; }
 	YY_BREAK
 case 34:
 YY_RULE_SETUP
-#line 68 "simat_lex.l"
+#line 81 "simat_lex.l"
 { return KLEENECLOSURE; }
 	YY_BREAK
 case 35:
 YY_RULE_SETUP
-#line 69 "simat_lex.l"
+#line 82 "simat_lex.l"
 { return INTERSECTION; }
 	YY_BREAK
 case 36:
 YY_RULE_SETUP
-#line 70 "simat_lex.l"
+#line 83 "simat_lex.l"
 { return UNION; }				
 	YY_BREAK
 case 37:
 YY_RULE_SETUP
-#line 71 "simat_lex.l"
+#line 84 "simat_lex.l"
 { return MINUS; }
 	YY_BREAK
 case 38:
 YY_RULE_SETUP
-#line 73 "simat_lex.l"
+#line 86 "simat_lex.l"
 { return AND; }
 	YY_BREAK
 case 39:
 YY_RULE_SETUP
-#line 74 "simat_lex.l"
+#line 87 "simat_lex.l"
 { return OR; }
 	YY_BREAK
 case 40:
 YY_RULE_SETUP
-#line 75 "simat_lex.l"
+#line 88 "simat_lex.l"
 { return EQUALTO; }
 	YY_BREAK
 case 41:
 YY_RULE_SETUP
-#line 76 "simat_lex.l"
+#line 89 "simat_lex.l"
 { return COLON; }
 	YY_BREAK
 case 42:
 YY_RULE_SETUP
-#line 77 "simat_lex.l"
+#line 90 "simat_lex.l"
 { return NOTEQUALTO; }
 	YY_BREAK
 case 43:
 YY_RULE_SETUP
-#line 79 "simat_lex.l"
+#line 92 "simat_lex.l"
 {  yylval.str = strdup(yytext); return IDENTIFIER; }
 	YY_BREAK
 case 44:
 YY_RULE_SETUP
-#line 82 "simat_lex.l"
+#line 95 "simat_lex.l"
 { /* Ignore whitespace */ }
 	YY_BREAK
 case 45:
 /* rule 45 can match eol */
 YY_RULE_SETUP
-#line 84 "simat_lex.l"
+#line 97 "simat_lex.l"
 { return NEWLINE; }
 	YY_BREAK
 case 46:
 YY_RULE_SETUP
-#line 86 "simat_lex.l"
+#line 99 "simat_lex.l"
 { return UNKNOWN; }
 	YY_BREAK
 case 47:
 YY_RULE_SETUP
-#line 89 "simat_lex.l"
+#line 102 "simat_lex.l"
 ECHO;
 	YY_BREAK
-#line 1144 "lex.yy.c"
+#line 1157 "lex.yy.c"
 case YY_STATE_EOF(INITIAL):
 	yyterminate();
 
@@ -2145,14 +2158,37 @@ void yyfree (void * ptr )
 
 #define YYTABLES_NAME "yytables"
 
-#line 89 "simat_lex.l"
+#line 102 "simat_lex.l"
 
 
 
-int main()
+
+int main(int argc, char *argv[]) 
 {
 	//yydebug = 1;
+    if (argc < 2) {
+        fprintf(stderr, "Usage: simat <input_file.simat>\n");
+        return EXIT_FAILURE;
+    }
+
+    // Check if the input file has a .simat extension
+    if (!has_simat_extension(argv[1])) {
+        fprintf(stderr, "Invalid file type. Please provide a .simat file.\n");
+        return EXIT_FAILURE;
+    }
+
+    // Your existing code to open the file and process it
+    FILE *input_file = fopen(argv[1], "r");
+    if (!input_file) {
+        perror("Error opening file");
+        return EXIT_FAILURE;
+    }
+    yyin = input_file;
+    // Your parser logic goes here...
+
+    
 	yyparse(); //starts the parsing(lex+syntax+semantic analysis)
+	fclose(input_file);
 	return 0;
 }
 
